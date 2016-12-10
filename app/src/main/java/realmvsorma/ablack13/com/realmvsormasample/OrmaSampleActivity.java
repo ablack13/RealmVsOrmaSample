@@ -8,14 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
-import io.realm.Realm;
 import realmvsorma.ablack13.com.realmvsormasample.adapters.OrmaAdapter;
 import realmvsorma.ablack13.com.realmvsormasample.beans.OrmaBeanObj;
 import realmvsorma.ablack13.com.realmvsormasample.beans.OrmaBeanObj_Relation;
-
-/**
- * Created by ablack13 on 10.12.16.
- */
 
 public class OrmaSampleActivity extends AppCompatActivity {
     private Button btnAdd;
@@ -34,17 +29,12 @@ public class OrmaSampleActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                App.realm().executeTransaction(new Realm.Transaction() {
+                final OrmaBeanObj obj = new OrmaBeanObj();
+                obj.name = "New orma item" + System.currentTimeMillis();
+                App.orma().transactionSync(new Runnable() {
                     @Override
-                    public void execute(Realm realm) {
-                        final OrmaBeanObj obj = new OrmaBeanObj();
-                        obj.name = "New orma item" + System.currentTimeMillis();
-                        App.orma().transactionSync(new Runnable() {
-                            @Override
-                            public void run() {
-                                App.orma().relationOfOrmaBeanObj().inserter().execute(obj);
-                            }
-                        });
+                    public void run() {
+                        App.orma().relationOfOrmaBeanObj().inserter().execute(obj);
                     }
                 });
             }
