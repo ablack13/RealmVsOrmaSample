@@ -31,6 +31,7 @@ public class RealmSampleActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 App.realm().executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {

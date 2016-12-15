@@ -1,11 +1,9 @@
 package realmvsorma.ablack13.com.realmvsormasample.beans;
 
-import android.support.annotation.Nullable;
-
 import com.github.gfx.android.orma.annotation.Column;
+import com.github.gfx.android.orma.annotation.OnConflict;
+import com.github.gfx.android.orma.annotation.PrimaryKey;
 import com.github.gfx.android.orma.annotation.Table;
-
-import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by ablack13 on 10.12.16.
@@ -14,8 +12,11 @@ import io.realm.annotations.PrimaryKey;
 @Table
 public class OrmaBeanObj {
 
-    @PrimaryKey
-    @Column
-    @Nullable
+    public long id;
+
+    @PrimaryKey(onConflict = OnConflict.REPLACE)
+    @Column(indexed = true)
     public String name;
+    @Column(indexed = true)
+    public String lastName;
 }
